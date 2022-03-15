@@ -2,6 +2,7 @@
 
 In this folder we make the voltage fault injection code available and describe how to use it to mount an attack.
 
+---
 ## Hardware setup
 
 Our glitching setup consists of the following components:
@@ -61,6 +62,7 @@ Both the SVC and SVD lines are also directly connected to two pins of the µCont
 Fully connected, the teensy should look as follows:
 ![Schematic of the Teensy/Motherboard connections](teensy_setup.png)
 
+---
 ## Targets
 
 The targets we sucessfully attacked are:
@@ -84,6 +86,7 @@ The targets we sucessfully attacked are:
 
 Note: The H11DSU-iN does not officially support Zen 3 CPUs, however, we could nevertheless boot the AMD-SP and execute our payloads.
 
+---
 ## Teensy Firmware
 
 A custom attack-firmware is necessary for our attack.
@@ -111,8 +114,16 @@ With this tool built and the Teensy 4.0 connected you can use the following comm
 ```
 ./teensy_tool/teensy_loader_cli --mcu=TEENSY40 -s -w teensy_firmware.hex
 ```
-**文件的相对路径可能不同，注意teensy_tool和teensy_firmware文件的相对位置关系**
-**我的teensy_firmare编译出的是main.hex而不是teensy_firmare.hex**
+#### Annotation
+**文件的相对路径可能不同，注意teensy_tool和teensy_firmware文件的相对位置关系，我将其放在了`attack-code`文件夹下**
+**我的teensy_firmare编译出的是main.hex而不是teensy_firemware.hex，烧写到Teensy4.0后打开串口测试可用。**
+**There is no `teensy_tool` file in the original repository and I put it under `attack-code`**
+**After compiling the tool I get main.hex instead of teensy_firmware.hex. Flash it onto Teenst4.0 and it's available with a serial port.**
+Flash main.hex onto Teensy4.0:
+```
+cd teensy_firmware
+../teensy_tool/teensy_loader_cli --mcu=TEENSY40 -s -w main.hex
+```
 
 ### Using the teensy firmware
 
@@ -170,5 +181,7 @@ In the `teensy_firmware` directory you can build the firmware by running `make` 
 ```
 make program
 ```
-**编译的时候会报错，删除makefile中的开头注释。TEENSY4_PATH那一行hardare前面少了一个斜杠/**
+#### Annotation
+**编译的时候会报错，提示makefile第一行遗漏分隔符，而第一行是注释，删除掉所有开头注释就好了。TEENSY4_PATH那一行hardware前面少了一个斜杠/。这个仓库中已修复以上错误。**
+**An error of "missing separator" will be raised when compiling. Delete the top comment. Line of defining 'TEENSY4_PATH' losses a '/' before 'hardware'. All errors are corrected in this repository.**
 
