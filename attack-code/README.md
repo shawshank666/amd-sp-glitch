@@ -111,6 +111,8 @@ With this tool built and the Teensy 4.0 connected you can use the following comm
 ```
 ./teensy_tool/teensy_loader_cli --mcu=TEENSY40 -s -w teensy_firmware.hex
 ```
+**文件的相对路径可能不同，注意teensy_tool和teensy_firmware文件的相对位置关系**
+**我的teensy_firmare编译出的是main.hex而不是teensy_firmare.hex**
 
 ### Using the teensy firmware
 
@@ -168,4 +170,5 @@ In the `teensy_firmware` directory you can build the firmware by running `make` 
 ```
 make program
 ```
+**编译的时候会报错，删除makefile中的开头注释。TEENSY4_PATH那一行hardare前面少了一个斜杠/**
 
